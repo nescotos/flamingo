@@ -1,0 +1,43 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Create your account</h1>
+  </div>
+</section>
+<nav class="panel">
+  <p class="panel-heading">
+    Create your Account
+  </p>  
+  <label class="panel-block">
+    This might take a while, please hold!
+  </label>
+  <div class="panel-block">
+    <button class="button is-success is-outlined is-fullwidth" (click)="createContract()" [ngClass]="{'is-loading' : isLoading}">
+      Create New Account
+    </button>
+  </div>
+</nav>
+<nav class="panel" *ngIf="contractAddress">
+  <p class="panel-heading">
+    Account Details
+  </p>  
+  <label class="panel-block">
+    Please copy your address in a safe place!
+  </label>
+  <label class="panel-block">
+    <strong>Contract Address:&nbsp;</strong>
+    <input class="input is-primary" disabled [value]="contractAddress"/>
+  </label>
+</nav>
+<section *ngIf="contractAddress" class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+      </div>
+      <div class="column">
+        <ngx-kjua [text]="contractAddress" [ecLevel]="'H'" [size]="250"></ngx-kjua>
+      </div>
+      <div class="column">        
+      </div>
+    </div>    
+  </div>
+</section>

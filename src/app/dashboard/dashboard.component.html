@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Search for Flamingos</h1>
+    <h2 class="subtitle">
+      Insert the 
+      <strong>contract address</strong> inside the Search Bar and retrieve results.
+    </h2>
+  </div>
+</section>
+<nav class="panel">
+  <p class="panel-heading">
+    Search
+  </p>
+  <div class="panel-block">
+    <div class="control has-icons-left">
+      <form (ngSubmit)="searchResults()" class="field">
+        <input #queryInput [(ngModel)]="query" class="input" type="text" placeholder="search" [ngModelOptions]="{standalone: true}"/>
+        <span class="icon is-small is-left">
+          <i class="fas fa-search" aria-hidden="true"></i>
+        </span>
+      </form>
+    </div>
+  </div>  
+  <div class="panel-block">
+    <button class="button is-link is-outlined is-fullwidth" (click)="enableQRReader()" [ngClass]="{'is-loading' : isLoading}">
+      {{qrButtonMessage}}
+    </button>
+  </div>
+  <div class="panel-block" [ngStyle]="{'display' : scannerStatus}">
+    <zxing-scanner #scanner [scannerEnabled]="enableQR" (scanSuccess)="getCodeQR($event)" [device]="device"></zxing-scanner>
+  </div>
+</nav>
+
+<div *ngFor="let flamingo of flamingos" class="card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="{{flamingo.base64Image}}" alt="Placeholder image">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content">
+      <strong>Title: </strong>
+      {{flamingo.name}}
+    </div>
+    <div class="content">
+      <strong>Source: </strong>
+      {{flamingo.source}}
+    </div>
+  </div>
+</div>
+<section class="section" *ngIf="message">
+  <div class="container">
+    <h1 class="title">{{message}}</h1>
+  </div>
+</section>

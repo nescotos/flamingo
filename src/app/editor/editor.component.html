@@ -1,0 +1,59 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Create A New Flamingo Post</h1>
+  </div>
+</section>
+<form (ngSubmit)="sendFlamingo()">
+  <div class="field">
+    <label class="label">Flamingo Name</label>
+    <div class="control">
+      <input required [(ngModel)]="data.name" id="name" name="name" class="input" type="text" placeholder="Flamingo Name">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Contract Address</label>
+    <div class="control">
+      <input required [(ngModel)]="data.address" id="address" name="address" class="input" type="text" placeholder="Contract Address">
+    </div>
+  </div>
+  <div class="field">
+    <div class="file is-centered is-boxed is-success has-name">
+      <label class="file-label">
+        <input required #fileInput class="file-input" type="file" name="resume" (change)="fileChange()">
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Picture to Upload
+          </span>
+        </span>
+        <span class="file-name" *ngIf="filename">
+          {{filename}}
+        </span>
+      </label>
+    </div>
+  </div>
+  <div class="field">
+    <button type="button" class="button is-link is-outlined is-fullwidth" (click)="enableQRReader()">
+      {{qrButtonMessage}}
+    </button>
+  </div>
+  <div class="panel-block" [ngStyle]="{'display' : scannerStatus}">
+    <zxing-scanner #scanner [scannerEnabled]="enableQR" (scanSuccess)="getCodeQR($event)" [device]="device"></zxing-scanner>
+  </div>
+  <div class="field">
+    <label class="label">
+      <strong>{{message}}</strong>
+    </label>
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" [ngClass]="{'is-loading' : isLoading}">Submit</button>
+    </div>
+    <div class="control">
+      <button type="button" class="button is-text" (click)="clearInputs()">Cancel</button>
+    </div>
+  </div>
+</form>
+
